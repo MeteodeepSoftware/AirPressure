@@ -19,6 +19,9 @@ baseURL = 'https://api.thingspeak.com/update?api_key=%s' % myAPI
 f = urlopen(baseURL + "&field1=%s" % (str(pressure)))
 f.close() 
 
+with open("pressure.csv", "a") as log:
+        log.write("{0},{1}\n".format(strftime("%Y-%m-%d %H:%M:%S"),str(pressure)))
+
 from subprocess import call
 Upload = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload /var/www/meteodeep/pressurearchiveddata.txt /PressureArchivedData.txt"
 call ([Upload], shell=True)
